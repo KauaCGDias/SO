@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz - Tecnologia e Segurança da Informação</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+    h1 { text-align: center; }
+    .question { margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 5px #ccc; }
+    .options label { display: block; margin-bottom: 5px; }
+    button { padding: 10px 20px; font-size: 16px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; }
+    #results { margin-top: 30px; }
+    .correct { color: green; }
+    .wrong { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Quiz - Tecnologia e Segurança da Informação</h1>
+  <form id="quizForm"></form>
+  <button onclick="verificarRespostas()">Verificar Respostas</button>
+  <div id="results"></div>
+
+  <script>
+    const perguntas = [
+      {
+        texto: "1. Na área de segurança da informação, garantir a proteção dos dados é essencial para evitar prejuízos financeiros e danos à reputação das organizações. Nesse sentido, o conceito de confidencialidade é um dos pilares da segurança. Assinale a alternativa que melhor define o que significa manter a confidencialidade dos dados em um ambiente digital.",
+        opcoes: [
+          "Garantir que as informações estejam sempre disponíveis para todos os usuários, facilitando o acesso.",
+          "Proteger as informações contra acessos não autorizados, mantendo os dados restritos apenas a pessoas habilitadas.",
+          "Assegurar que os dados estejam sempre corretos e livres de erros ou alterações.",
+          "Permitir o compartilhamento amplo dos dados para aumentar a transparência.",
+          "Registrar todas as ações realizadas nos sistemas para garantir auditoria."
+        ],
+        correta: 1
+      },
+      {
+        texto: "2. Os ataques cibernéticos estão cada vez mais sofisticados, e a implementação de mecanismos de proteção na rede é fundamental para manter a integridade dos sistemas. Um dos dispositivos mais usados para proteger redes de computadores é o firewall. Considerando essa função, qual das alternativas a seguir descreve corretamente a principal responsabilidade de um firewall?",
+        opcoes: [
+          "Criptografar automaticamente todos os dados que entram e saem da rede.",
+          "Monitorar e controlar o tráfego de rede, bloqueando conexões não autorizadas.",
+          "Fazer backup dos dados em nuvem para evitar perdas.",
+          "Detectar e eliminar vírus e malwares em tempo real.",
+          "Otimizar a velocidade da conexão com a internet."
+        ],
+        correta: 1
+      },
+      {
+        texto: "3. Um sistema operacional é o software que atua como intermediário entre o usuário e o hardware do computador, gerenciando recursos e facilitando o uso do dispositivo. Dentre suas partes essenciais, o kernel ou núcleo é responsável por tarefas específicas. Qual alternativa descreve adequadamente a função do kernel em um sistema operacional?",
+        opcoes: [
+          "Interface gráfica que permite ao usuário interagir com o computador.",
+          "Programa que gerencia o acesso a dispositivos como impressoras e monitores.",
+          "Parte central do sistema que gerencia recursos de hardware, como processador, memória e dispositivos.",
+          "Aplicativo usado para executar programas de edição de texto.",
+          "Arquivo onde os dados do usuário são armazenados permanentemente."
+        ],
+        correta: 2
+      },
+      {
+        texto: "4. A comunicação entre dispositivos em uma rede de computadores depende de protocolos que definem regras e formatos para o envio e recebimento de informações. Um dos protocolos mais importantes para a Internet é o conjunto TCP/IP. Assinale a alternativa que melhor explica o que é o protocolo TCP/IP.",
+        opcoes: [
+          "Um sistema operacional usado exclusivamente em servidores web.",
+          "Um conjunto de regras que permite a comunicação confiável e estruturada entre dispositivos em uma rede.",
+          "Um antivírus usado para proteger computadores conectados à internet.",
+          "Uma linguagem de programação utilizada para desenvolvimento web.",
+          "Um software para configurar roteadores e switches."
+        ],
+        correta: 1
+      },
+      {
+        texto: "5. Com o aumento do uso da internet para comunicação e negócios, diversos tipos de ataques virtuais têm surgido para explorar vulnerabilidades dos usuários. O ataque conhecido como phishing é um método utilizado para enganar pessoas e obter informações sensíveis. Qual das alternativas abaixo melhor define o que é phishing?",
+        opcoes: [
+          "Um ataque que força o sistema a adivinhar senhas por tentativa e erro.",
+          "Envio de mensagens ou e-mails falsos que simulam instituições confiáveis para roubar dados pessoais.",
+          "Um tipo de ataque que sobrecarrega um servidor com requisições, tornando-o inacessível.",
+          "Inserção de códigos maliciosos em bancos de dados para corromper informações.",
+          "Distribuição de vírus que apagam arquivos importantes do sistema."
+        ],
+        correta: 1
+      },
+      {
+        texto: "6. Na área de criptografia, a segurança da comunicação depende muito do tipo de chave utilizada para codificar e decodificar as informações. Entre os métodos mais conhecidos estão a criptografia simétrica e a assimétrica. Sobre essa última, qual alternativa descreve corretamente o funcionamento da criptografia de chave assimétrica?",
+        opcoes: [
+          "Usa uma única chave secreta compartilhada para criptografar e descriptografar os dados.",
+          "Utiliza um par de chaves, sendo uma pública para criptografar e uma privada para descriptografar, garantindo maior segurança na troca de informações.",
+          "Criptografia dados sem necessidade de qualquer chave, apenas com algoritmos matemáticos.",
+          "Serve apenas para proteger arquivos armazenados localmente no computador.",
+          "Funciona exclusivamente em redes internas sem conexão com a internet."
+        ],
+        correta: 1
+      },
+      {
+        texto: "7. Em redes de computadores, é comum conectar diferentes dispositivos para formar uma rede maior ou acessar a internet. Para isso, existem dispositivos que têm funções específicas, como o roteador, o switch e o hub. Qual das opções abaixo corresponde corretamente à função do roteador?",
+        opcoes: [
+          "Dispositivo que conecta dispositivos dentro da mesma rede local, sem fazer encaminhamento para outras redes.",
+          "Aparelho que converte sinais digitais em analógicos para conexão com a internet.",
+          "Equipamento que conecta diferentes redes, encaminhando pacotes de dados entre elas, como entre sua rede doméstica e a internet.",
+          "Dispositivo que amplifica o sinal da rede sem modificar ou filtrar os dados.",
+          "Software usado para monitorar o tráfego de rede."
+        ],
+        correta: 2
+      },
+      {
+        texto: "8. O termo multitarefa refere-se a um recurso importante em sistemas operacionais modernos, que permite que um computador realize várias operações ao mesmo tempo. Considerando isso, qual das alternativas explica corretamente o conceito de multitarefa?",
+        opcoes: [
+          "Executar diversas tarefas simultaneamente, compartilhando os recursos do processador entre elas.",
+          "Ter múltiplos usuários utilizando o mesmo sistema ao mesmo tempo.",
+          "Instalar vários programas no computador.",
+          "Atualizar automaticamente o sistema operacional em segundo plano.",
+          "Salvar vários arquivos simultaneamente no disco rígido."
+        ],
+        correta: 0
+      },
+      {
+        texto: "9. A segurança da informação depende muito de práticas corretas para garantir que os dados estejam protegidos e possam ser recuperados em caso de falhas. Uma das estratégias mais utilizadas é o backup, que pode ser feito de várias formas, como backup completo e incremental. Qual alternativa a seguir explica corretamente a diferença entre esses dois tipos de backup?",
+        opcoes: [
+          "Backup completo copia todos os arquivos, enquanto o incremental copia apenas os arquivos que foram modificados desde o último backup.",
+          "Backup incremental copia todos os arquivos, e o completo só copia as mudanças feitas.",
+          "Backup completo é sempre mais rápido que o incremental.",
+          "Backup incremental não é recomendado para dados importantes.",
+          "Backup completo não permite restauração individual de arquivos."
+        ],
+        correta: 0
+      },
+      {
+        texto: "10. Em informática, os sistemas de numeração são fundamentais para o armazenamento e processamento dos dados pelos computadores. Um sistema muito utilizado é o sistema binário. Qual das alternativas indica corretamente a base do sistema binário e sua principal característica?",
+        opcoes: [
+          "Base 8, que usa os números de 0 a 7 para representar dados.",
+          "Base 10, que é o sistema decimal usado na matemática cotidiana.",
+          "Base 16, que utiliza números de 0 a 9 e letras de A a F.",
+          "Base 2, que utiliza apenas dois símbolos, 0 e 1, para representar todos os dados digitalmente.",
+          "Base 5, que é utilizada em sistemas antigos de computação."
+        ],
+        correta: 3
+      },
+      {
+        texto: "11. A sigla URL é amplamente utilizada no contexto da internet para identificar endereços de páginas, arquivos e recursos. Considerando o seu uso e significado, assinale a alternativa correta que define o que é uma URL.",
+        opcoes: [
+          "Unified Resource Locator, um sistema unificado para localização de recursos digitais.",
+          "Uniform Resource Locator, que é o endereço padrão que aponta para um recurso específico na internet, como uma página web.",
+          "Universal Resource Locator, um endereço universal para qualquer dispositivo conectado.",
+          "Uniform Remote Link, um link padrão para acesso remoto a computadores.",
+          "Unified Remote Link, uma ferramenta de controle remoto."
+        ],
+        correta: 1
+      },
+      {
+        texto: "12. A segurança nas comunicações web é um aspecto essencial para proteger dados transmitidos entre usuários e servidores. O protocolo HTTPS é um padrão para garantir essa segurança, utilizando outras tecnologias em seu funcionamento. Qual alternativa a seguir explica corretamente qual protocolo é utilizado para tornar as conexões HTTPS seguras?",
+        opcoes: [
+          "FTP, usado para transferência de arquivos entre computadores.",
+          "SMTP, utilizado para envio de e-mails.",
+          "SSL/TLS, que cria uma camada de segurança para criptografar dados transmitidos via HTTP.",
+          "UDP, protocolo para comunicação sem conexão.",
+          "SSH, protocolo para acesso remoto seguro."
+        ],
+        correta: 2
+      },
+      {
+        texto: "13. Em segurança digital, a criação e manutenção de senhas fortes é uma das principais recomendações para evitar acessos não autorizados a contas e sistemas. Dentre as práticas abaixo, qual delas é considerada a mais adequada para garantir uma senha segura?",
+        opcoes: [
+          "Usar a mesma senha para várias contas, facilitando a memorização.",
+          "Criar senhas curtas e fáceis de lembrar, mesmo que simples.",
+          "Utilizar senhas complexas, combinando letras maiúsculas, minúsculas, números e símbolos especiais.",
+          "Anotar senhas em papéis para não esquecer.",
+          "Compartilhar a senha com colegas para facilitar o trabalho em grupo."
+        ],
+        correta: 2
+      },
+      {
+        texto: "14. O software antivírus é um componente fundamental para proteger computadores contra ameaças digitais. Além da detecção, ele pode realizar diversas outras funções importantes. Qual das alternativas a seguir melhor descreve o que faz um antivírus em um sistema?",
+        opcoes: [
+          "Aumenta a velocidade da conexão com a internet.",
+          "Detecta, bloqueia e remove softwares maliciosos que possam danificar ou comprometer o computador.",
+          "Faz backup automático de arquivos importantes.",
+          "Cria senhas seguras para o usuário.",
+          "Atualiza automaticamente o sistema operacional."
+        ],
+        correta: 1
+      },
+      {
+        texto: "15. Programar é uma habilidade essencial na área da tecnologia da informação, e todo programa é construído a partir de um conjunto lógico de instruções. Nesse contexto, qual das alternativas descreve corretamente o conceito de algoritmo?",
+        opcoes: [
+          "Um banco de dados que armazena informações do usuário.",
+          "Um conjunto organizado de passos ou instruções para resolver um problema ou realizar uma tarefa específica.",
+          "Um software para editar imagens digitais.",
+          "Um programa que gerencia o sistema operacional.",
+          "Um protocolo de segurança para redes sem fio."
+        ],
+        correta: 1
+      },
+      {
+        texto: "16. Existem diversos sistemas operacionais disponíveis no mercado, com características e usos diferentes. Entre eles, destacam-se aqueles que são de código aberto, permitindo que qualquer pessoa tenha acesso e possa modificar seu código. Qual alternativa apresenta corretamente um exemplo de sistema operacional open source?",
+        opcoes: [
+          "Windows 10",
+          "macOS",
+          "Linux",
+          "iOS",
+          "Android sem modificação"
+        ],
+        correta: 2
+      },
+      {
+        texto: "17. No campo da segurança digital, o phishing é uma ameaça que explora a confiança dos usuários para roubar dados pessoais importantes, como senhas e informações bancárias. Qual alternativa descreve corretamente o que é um ataque de phishing?",
+        opcoes: [
+          "Um ataque que força sistemas a adivinharem senhas por tentativa e erro.",
+          "Uma técnica fraudulenta que utiliza e-mails ou mensagens falsas para enganar as vítimas e obter informações pessoais.",
+          "Um ataque que derruba servidores por meio de sobrecarga de acessos simultâneos.",
+          "Uma forma de injetar código malicioso em bancos de dados.",
+          "Um tipo de malware que apaga arquivos do sistema."
+        ],
+        correta: 1
+      },
+      {
+        texto: "18. Com o avanço das redes sem fio, muitos dispositivos utilizam conexões Wi-Fi para acessar a internet e compartilhar informações. Para isso, existe um equipamento que gerencia essas conexões, controlando o acesso e a transmissão de dados. Qual dispositivo abaixo desempenha essa função?",
+        opcoes: [
+          "Modem",
+          "Switch",
+          "Roteador Wi-Fi",
+          "Hub",
+          "Placa-mãe"
+        ],
+        correta: 2
+      },
+      {
+        texto: "19. O sistema de arquivos é um componente fundamental do sistema operacional, responsável por organizar e gerenciar o armazenamento dos dados em discos rígidos e outros dispositivos. O que melhor define um sistema de arquivos?",
+        opcoes: [
+          "Um programa utilizado para editar documentos.",
+          "A estrutura que determina como os arquivos são organizados, nomeados e acessados em um dispositivo de armazenamento.",
+          "Um tipo de vírus que infecta arquivos do sistema.",
+          "Uma rede de computadores interligados.",
+          "Um hardware de armazenamento."
+        ],
+        correta: 1
+      },
+      {
+        texto: "20. A memória RAM é um componente essencial em qualquer computador, pois afeta diretamente a velocidade e o desempenho do sistema. Qual das alternativas melhor explica a função da memória RAM?",
+        opcoes: [
+          "Armazenar permanentemente os dados do usuário e arquivos pessoais.",
+          "Armazenar temporariamente dados e instruções que o processador precisa acessar rapidamente durante a execução de programas.",
+          "Controlar a comunicação entre o computador e a internet.",
+          "Fornecer energia elétrica para o funcionamento do computador.",
+          "Exibir imagens na tela do computador."
+        ],
+        correta: 1
+      },
+      {
+        texto: "21. Em segurança da informação, o processo de autenticação é fundamental para garantir que somente usuários autorizados tenham acesso a sistemas e dados. Qual das alternativas melhor define o que é autenticação?",
+        opcoes: [
+          "Processo de criar senhas complexas para proteção dos dados.",
+          "Processo de identificar e verificar a identidade de um usuário antes de conceder acesso a recursos do sistema.",
+          "Processo de encriptar os dados para mantê-los seguros.",
+          "Processo de fazer backup dos arquivos importantes.",
+          "Processo de monitorar o tráfego da rede para detectar ameaças."
+        ],
+        correta: 1
+      },
+      {
+        texto: "22. Sistemas de detecção de intrusão (IDS) são utilizados para aumentar a segurança das redes e sistemas. Qual das alternativas a seguir descreve corretamente a função de um IDS?",
+        opcoes: [
+          "Bloquear automaticamente qualquer tráfego suspeito na rede.",
+          "Detectar e alertar sobre atividades suspeitas ou anômalas em uma rede ou sistema.",
+          "Atualizar automaticamente o sistema operacional para corrigir vulnerabilidades.",
+          "Remover vírus e malwares do computador.",
+          "Aumentar a velocidade da conexão com a internet."
+        ],
+        correta: 1
+      },
+      {
+        texto: "23. Em redes de computadores, o protocolo DHCP é fundamental para a configuração dos dispositivos que se conectam à rede. Qual das alternativas abaixo explica corretamente a função do protocolo DHCP?",
+        opcoes: [
+          "Atribuir endereços IP automaticamente aos dispositivos conectados, facilitando a configuração da rede.",
+          "Criptografar os dados transmitidos na rede.",
+          "Monitorar o tráfego de rede para identificar ataques.",
+          "Bloquear acessos não autorizados.",
+          "Gerenciar permissões de acesso a arquivos."
+        ],
+        correta: 0
+      },
+      {
+        texto: "24. A sigla VPN tem ganhado destaque por permitir conexões seguras através da internet. O que significa a sigla VPN e qual a sua função principal?",
+        opcoes: [
+          "Virtual Private Network, que cria uma conexão segura e criptografada entre o usuário e a rede, garantindo privacidade e proteção dos dados transmitidos.",
+          "Variable Protocol Network, que permite a variação dinâmica dos protocolos usados em uma rede.",
+          "Verified Public Network, que é uma rede pública verificada para uso seguro.",
+          "Virtual Public Node, um nó virtual em redes distribuídas.",
+          "Visual Private Network, uma rede privada visual."
+        ],
+        correta: 0
+      },
+      {
+        texto: "25. Antivírus modernos utilizam diferentes técnicas para proteger os sistemas contra ameaças novas e desconhecidas. Uma dessas técnicas é a análise de comportamento dos programas. Qual das alternativas explica corretamente o que faz um antivírus baseado em comportamento?",
+        opcoes: [
+          "Detecta vírus conhecidos por assinatura em bancos de dados.",
+          "Analisa o comportamento dos programas para identificar ações suspeitas que possam indicar uma ameaça ainda desconhecida.",
+          "Atualiza o sistema operacional automaticamente.",
+          "Cria backups periódicos dos arquivos do usuário.",
+          "Criptografia os arquivos para protegê-los."
+        ],
+        correta: 1
+      },
+      {
+        texto: "26. Na distinção entre software livre e software proprietário, existem diferenças importantes relacionadas ao acesso ao código-fonte e à liberdade de uso. Qual alternativa descreve corretamente essa diferença?",
+        opcoes: [
+          "Software livre é sempre gratuito, enquanto software proprietário é pago.",
+          "Software livre permite acesso e modificação do código-fonte, enquanto software proprietário restringe esse acesso.",
+          "Software proprietário funciona melhor que software livre.",
+          "Software livre só roda em sistemas Linux, enquanto software proprietário só funciona em Windows.",
+          "Software proprietário é de código aberto e pode ser modificado por qualquer pessoa."
+        ],
+        correta: 1
+      },
+      {
+        texto: "27. O endereço IP é um elemento fundamental para a comunicação em redes de computadores, pois identifica os dispositivos conectados. O que é um endereço IP?",
+        opcoes: [
+          "Um número único que identifica cada dispositivo em uma rede, permitindo a troca de dados entre eles.",
+          "Um programa usado para navegar na internet.",
+          "Um arquivo que contém as configurações do roteador.",
+          "Uma senha para acessar redes Wi-Fi.",
+          "Um protocolo de criptografia para comunicações."
+        ],
+        correta: 0
+      },
+      {
+        texto: "28. A virtualização é uma tecnologia que permite executar múltiplos sistemas operacionais em um mesmo hardware, aumentando a flexibilidade e o aproveitamento dos recursos. O que é uma máquina virtual?",
+        opcoes: [
+          "Um hardware especial criado para rodar jogos pesados.",
+          "Um software que simula um computador completo dentro de outro computador, permitindo executar sistemas operacionais diferentes isoladamente.",
+          "Um sistema operacional antigo que não é mais usado.",
+          "Um firewall avançado para proteger redes.",
+          "Um vírus que se replica automaticamente."
+        ],
+        correta: 1
+      },
+      {
+        texto: "29. O sistema operacional é o principal software que permite o funcionamento de um computador, sendo responsável por controlar o hardware e fornecer serviços essenciais para os aplicativos. Qual das alternativas define corretamente a função do sistema operacional?",
+        opcoes: [
+          "Criar documentos e planilhas para o usuário.",
+          "Controlar o hardware, gerenciar recursos do computador e facilitar a interação entre o usuário e os programas.",
+          "Proteger o computador contra vírus e malwares.",
+          "Fornecer acesso à internet para o usuário.",
+          "Rodar jogos e aplicativos de entretenimento."
+        ],
+        correta: 1
+      },
+      {
+        texto: "30. No universo dos dispositivos móveis, diversos sistemas operacionais competem pelo mercado, cada um com suas características. Qual alternativa apresenta um sistema operacional amplamente utilizado em smartphones e tablets?",
+        opcoes: [
+          "Windows 10",
+          "macOS",
+          "Android",
+          "Linux",
+          "Unix"
+        ],
+        correta: 2
+      }
+    ];
+
+    const form = document.getElementById('quizForm');
+    perguntas.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p><strong>${q.texto}</strong></p>`;
+      q.opcoes.forEach((op, j) => {
+        div.innerHTML += `
+          <div class="options">
+            <label>
+              <input type="radio" name="q${i}" value="${j}" /> ${op}
+            </label>
+          </div>`;
+      });
+      form.appendChild(div);
+    });
+
+    function verificarRespostas() {
+      const resultados = document.getElementById('results');
+      resultados.innerHTML = '';
+      let acertos = 0;
+
+      perguntas.forEach((q, i) => {
+        const resposta = document.querySelector(`input[name='q${i}']:checked`);
+        const respostaCorreta = q.correta;
+
+        if (resposta) {
+          const valor = parseInt(resposta.value);
+          if (valor === respostaCorreta) {
+            acertos++;
+            resultados.innerHTML += `<p class="correct">Questão ${i + 1}: Correta</p>`;
+          } else {
+            resultados.innerHTML += `<p class="wrong">Questão ${i + 1}: Incorreta (Correta: ${q.opcoes[q.correta]})</p>`;
+          }
+        } else {
+          resultados.innerHTML += `<p class="wrong">Questão ${i + 1}: Não respondida (Correta: ${q.opcoes[q.correta]})</p>`;
+        }
+      });
+
+      resultados.innerHTML = `<h2>Você acertou ${acertos} de ${perguntas.length}</h2>` + resultados.innerHTML;
+    }
+  </script>
+</body>
+</html>
